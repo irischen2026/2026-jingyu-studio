@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
 import type { BentoItem, ProjectDetail, GalleryItem } from '../data/bento-items';
 
 import { useState, useEffect } from 'react';
@@ -128,7 +128,7 @@ export function BentoCard({ item, onProjectClick, onCardClick }: BentoCardProps)
   const isSpatial = item.id === 'spatial-design';
 
   // 将 hover 样式写入 variant，以便子组件能够监听到 "hover" 状态的触发
-  const cardVariants = {
+  const cardVariants: Variants = {
     hidden: { opacity: 0, y: 30, scale: 0.95 },
     visible: { 
       opacity: 1, 
