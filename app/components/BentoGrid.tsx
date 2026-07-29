@@ -3,24 +3,15 @@
 /**
  * BentoGrid.tsx
  * ──────────────────────────────────────────────────────────
- * 网格容器组件，负责：
- *   1. 非对称 CSS Grid 布局（3列 × 自动行）
- *   2. 编排子卡片的 stagger 入场动画
- *   3. 响应式断点处理（移动端退化为单列）
- *
- * 布局结构（桌面端）：
- *   ┌──────────────────────┬──────────────┐
- *   │   WutZit Hero        │  AI Tools    │
- *   │   (col-span-2        ├──────────────┤
- *   │    row-span-2)       │ AI Workflows │
- *   ├──────────────────────┴──────────────┤
- *   │         Insights (col-span-3)       │
- *   └─────────────────────────────────────┘
+ * 网格容器组件
  */
 
-import { motion, type Variants } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import { BentoCard } from './BentoCard';
-import type { BentoItem } from '../data/bento-items';
+import { ProjectModal } from './ProjectModal';
+import { SpatialGalleryModal } from './SpatialGalleryModal';
+import type { BentoItem, ProjectDetail } from '../data/bento-items';
 
 // staggerChildren 编排各卡片依次入场
 const containerVariants: Variants = {
@@ -38,23 +29,52 @@ interface BentoGridProps {
 }
 
 export function BentoGrid({ items }: BentoGridProps) {
+  // 提升状态到 Grid 层，使得 Modal 能够跳出单个卡片的 overflow-hidden 束缚
+  const [selectedProject, setSelectedProject] = useState<ProjectDetail | null>(null);
+  const [selectedSpatialItem, setSelectedSpatialItem] = useState<BentoItem | null>(null);
+
   return (
-    <motion.div
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-      /**
-       * CSS Grid 规格：
-       *   - 3 列等宽
-       *   - 行高自适应内容（auto），最小 160px
-       *   - gap 20px（符合 16-24px 规格要求）
-       */
-      className="grid grid-cols-1 md:grid-cols-3"
-      style={{ gap: '20px', gridAutoRows: 'minmax(200px, auto)' }}
-    >
-      {items.map((item) => (
-        <BentoCard key={item.id} item={item} />
-      ))}
-    </motion.div>
+    <>
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="grid grid-cols-1 md:grid-cols-3"
+        style={{ gap: '24px', gridAutoRows: 'minmax(280px, auto)' }}
+      >
+        {items.map((item) => (
+          <BentoCard 
+            key={item.id} 
+            item={item} 
+            onProjectClick={setSelectedProject}
+            onCardClick={() => {
+              if (item.id === 'spatial-design') {
+                setSelectedSpatialItem(item);
+              }
+            }}
+          />
+        ))}
+      </motion.div>
+
+      {/* 全局模态框 (Core Engineering 内部项目) */}
+      <AnimatePresence>
+        {selectedProject && (
+          <ProjectModal 
+            project={selectedProject} 
+            onClose={() => setSelectedProject(null)} 
+          />
+        )}
+      </AnimatePresence>
+
+      {/* 全局模态框 (Spatial & Design 画廊) */}
+      <AnimatePresence>
+        {selectedSpatialItem && (
+          <SpatialGalleryModal 
+            item={selectedSpatialItem} 
+            onClose={() => setSelectedSpatialItem(null)} 
+          />
+        )}
+      </AnimatePresence>
+    </>
   );
 }

@@ -40,7 +40,7 @@ export default function Home() {
       variants={pageVariants}
       initial="hidden"
       animate="visible"
-      className="min-h-screen flex flex-col"
+      className="min-h-screen flex flex-col max-w-[1800px] mx-auto w-full"
       style={{
         padding: 'var(--page-padding)',
         gap: '3rem',
