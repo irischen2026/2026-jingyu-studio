@@ -41,6 +41,12 @@ export function SpatialGalleryModal({ item, onClose }: SpatialGalleryModalProps)
         exit={{ opacity: 0 }}
         className="fixed inset-0 z-50 flex items-center justify-center bg-[#0a0a0c]/90 backdrop-blur-2xl"
       >
+        {/* 隐藏的图片预加载区域 */}
+        <div className="hidden">
+          {galleryItems.map((g, i) => (
+            <img key={`preload-${i}`} src={g.images[0]} alt="" />
+          ))}
+        </div>
         {/* 关闭整个画廊按钮 */}
         <button
           onClick={onClose}
@@ -83,9 +89,9 @@ export function SpatialGalleryModal({ item, onClose }: SpatialGalleryModalProps)
             {activeImages.length > 0 && hoveredIndex !== null && (
               <motion.div 
                 key={hoveredIndex} 
-                initial={{ opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
-                animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-                exit={{ opacity: 0, scale: 1.05, filter: 'blur(10px)' }}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 1.05 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
                 className="relative w-[300px] h-[400px] md:w-[450px] md:h-[550px] pointer-events-auto cursor-pointer group"
                 onClick={() => setSelectedDetail(galleryItems[hoveredIndex])}
