@@ -62,9 +62,9 @@ export const bentoItems: BentoItem[] = [
         id: 'p1-wutzit',
         title: 'Code-To-Chinese',
         isComingSoon: false,
-        image: '/project-cover.png', // 引用像素小人图片
+        image: './project-cover.png', // 引用像素小人图片
         description: 'An AI tool that deconstructs abstract technical jargon and transforms it into intuitive, human-readable analogies.',
-        workflowImage: '/workflow.png', // 引用白板图片
+        workflowImage: './workflow.png', // 引用白板图片
         features: ['Real-time Translation', 'Contextual Metaphors', 'Syntax Highlighting'],
         githubUrl: 'https://github.com/irischen2026/Code-To-Chinese/releases'
       },
