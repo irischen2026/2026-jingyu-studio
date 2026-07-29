@@ -40,7 +40,7 @@ export function BentoGrid({ items }: BentoGridProps) {
         initial="hidden"
         animate="visible"
         className="grid grid-cols-1 md:grid-cols-3"
-        style={{ gap: '24px', gridAutoRows: 'minmax(280px, auto)' }}
+        style={{ gap: 'var(--grid-gap)', gridAutoRows: 'minmax(var(--grid-row-height), auto)' }}
       >
         {items.map((item) => (
           <BentoCard 

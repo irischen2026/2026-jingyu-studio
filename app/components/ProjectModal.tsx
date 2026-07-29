@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { X, Code, ArrowRight, MessageSquare, Zap } from 'lucide-react';
+import { X, Code, ArrowRight, MessageSquare, Zap, ArrowLeft } from 'lucide-react';
 import type { ProjectDetail } from '../data/bento-items';
 
 interface ProjectModalProps {
@@ -15,7 +15,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
+      className="fixed inset-0 z-50 flex items-center justify-center p-0 md:p-4 sm:p-6"
     >
       {/* 背景遮罩 */}
       <div 
@@ -30,17 +30,18 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 20 }}
         transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-        className="relative w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-3xl bg-neutral-950/80 border border-white/10 shadow-2xl custom-scrollbar"
+        className="relative w-full h-[100dvh] md:h-auto md:max-w-3xl max-h-none md:max-h-[85vh] overflow-y-auto rounded-none md:rounded-3xl bg-neutral-950 md:bg-neutral-950/80 border-none md:border-solid md:border-white/10 shadow-2xl custom-scrollbar"
         style={{
           boxShadow: '0 0 40px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.05)',
         }}
       >
-        {/* 关闭按钮 */}
+        {/* 关闭/返回按钮 */}
         <button
           onClick={onClose}
-          className="absolute top-6 right-6 p-2 rounded-full bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition-colors z-10"
+          className="absolute top-4 left-4 md:top-6 md:right-6 md:left-auto p-2 rounded-full bg-black/40 md:bg-white/5 hover:bg-black/60 md:hover:bg-white/10 text-white transition-colors z-20 backdrop-blur-md"
         >
-          <X size={20} />
+          <span className="md:hidden"><ArrowLeft size={24} /></span>
+          <span className="hidden md:block"><X size={20} /></span>
         </button>
 
         {/* 顶部占位大图 / Cover */}

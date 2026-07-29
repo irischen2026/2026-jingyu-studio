@@ -44,29 +44,31 @@ export function SpatialGalleryModal({ item, onClose }: SpatialGalleryModalProps)
         {/* 关闭整个画廊按钮 */}
         <button
           onClick={onClose}
-          className="absolute top-6 right-6 md:top-10 md:right-10 p-3 rounded-full bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition-colors z-[60]"
+          className="fixed top-4 left-4 md:absolute md:top-10 md:right-10 md:left-auto p-2 md:p-3 rounded-full bg-black/40 md:bg-white/5 hover:bg-black/60 md:hover:bg-white/10 text-white md:text-white/70 md:hover:text-white transition-colors z-[60] backdrop-blur-md"
         >
-          <X size={24} />
+          <span className="md:hidden"><ArrowLeft size={24} /></span>
+          <span className="hidden md:block"><X size={24} /></span>
         </button>
 
-        <div className="absolute top-10 left-10 z-[60] pointer-events-none">
-          <h1 className="text-3xl font-bold text-white tracking-tight">{item.title} ({galleryItems.length})</h1>
+        <div className="absolute top-16 left-6 md:top-10 md:left-10 z-[60] pointer-events-none">
+          <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight">{item.title} ({galleryItems.length})</h1>
         </div>
 
         {/* 全屏文字列表 (Z-Index 较低) */}
         <div className="absolute inset-0 overflow-y-auto custom-scrollbar z-20">
-          <div className="min-h-screen py-40 px-6 md:px-20 max-w-7xl mx-auto flex flex-col gap-6">
+          <div className="min-h-screen pt-32 pb-12 px-6 md:py-40 md:px-20 max-w-7xl mx-auto flex flex-col gap-6">
             {galleryItems.map((gItem, idx) => (
               <div
                 key={gItem.id}
                 onMouseEnter={() => handleMouseEnter(idx)}
                 onMouseLeave={handleMouseLeave}
-                className="flex flex-col md:flex-row md:items-center justify-between group cursor-default border-b border-white/5 pb-6 transition-colors hover:border-white/20"
+                onClick={() => setSelectedDetail(gItem)}
+                className="flex flex-col md:flex-row md:items-center justify-between group cursor-pointer border-b border-white/5 pb-6 transition-colors hover:border-white/20"
               >
-                <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-white/20 group-hover:text-white transition-colors duration-300">
+                <h2 className="text-3xl md:text-6xl font-bold tracking-tight text-white/60 md:text-white/20 group-hover:text-white transition-colors duration-300">
                   {gItem.title}
                 </h2>
-                <div className="mt-4 md:mt-0 flex gap-6 md:gap-12 items-center text-sm md:text-base font-mono uppercase tracking-widest text-neutral-500 group-hover:text-neutral-300 transition-colors duration-300">
+                <div className="mt-4 md:mt-0 flex gap-6 md:gap-12 items-center text-sm md:text-base font-mono uppercase tracking-widest text-neutral-400 md:text-neutral-500 group-hover:text-neutral-300 transition-colors duration-300">
                   <span>{gItem.category}</span>
                   <span>— {gItem.year}</span>
                 </div>
@@ -76,7 +78,7 @@ export function SpatialGalleryModal({ item, onClose }: SpatialGalleryModalProps)
         </div>
 
         {/* 屏幕中央的动态图片叠放区 (Z-Index 调高至 30，允许点击) */}
-        <div className="fixed inset-0 pointer-events-none flex items-center justify-center z-30">
+        <div className="hidden md:flex fixed inset-0 pointer-events-none items-center justify-center z-30">
           <AnimatePresence mode="wait">
             {activeImages.length > 0 && hoveredIndex !== null && (
               <motion.div 
