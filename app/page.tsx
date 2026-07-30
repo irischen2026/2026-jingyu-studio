@@ -10,6 +10,7 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { BentoGrid } from './components/BentoGrid';
+import { TypewriterText } from './components/TypewriterText';
 import { bentoItems } from './data/bento-items';
 
 // ease 的 bezier 四元组必须显式声明为 tuple，避免 Framer Motion v12 类型报错
@@ -50,10 +51,14 @@ export default function Home() {
       <motion.header variants={headerVariants} className="flex flex-col gap-2">
         <div className="flex items-center gap-3">
           <h1
-            className="text-4xl font-bold tracking-tight"
+            className="text-4xl font-bold tracking-tight h-[40px] md:h-auto"
             style={{ color: 'var(--color-text-primary)' }}
           >
-            JingYu&apos;s Digital Lab
+            <TypewriterText 
+              text="JingYu's Digital Lab" 
+              speed={60} 
+              delay={300}
+            />
           </h1>
           {/* Live indicator (Monochrome) */}
           <span
@@ -72,10 +77,16 @@ export default function Home() {
           </span>
         </div>
         <p
-          className="text-sm font-mono max-w-lg"
+          className="text-sm font-mono max-w-lg h-[20px] md:h-auto"
           style={{ color: 'var(--color-text-muted)' }}
         >
-          AI Tools · Generative Workflows · Design Engineering
+          <TypewriterText 
+            text="AI Tools · Generative Workflows · Design Engineering" 
+            speed={40} 
+            delay={1500} 
+            showCursorWhenDone={true}
+            cursorClassName="bg-[var(--color-text-muted)] opacity-50"
+          />
         </p>
       </motion.header>
 
