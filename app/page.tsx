@@ -49,9 +49,9 @@ export default function Home() {
     >
       {/* ── Page Header ──────────────────────────────────── */}
       <motion.header variants={headerVariants} className="flex flex-col gap-2">
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-4">
           <h1
-            className="text-4xl font-bold tracking-tight h-[40px] md:h-auto"
+            className="text-4xl font-bold tracking-tight min-h-[80px] md:min-h-[40px]"
             style={{ color: 'var(--color-text-primary)' }}
           >
             <TypewriterText 
@@ -62,7 +62,7 @@ export default function Home() {
           </h1>
           {/* Live indicator (Monochrome) */}
           <span
-            className="flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-mono"
+            className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-mono self-start md:self-auto"
             style={{
               background: 'rgba(255,255,255,0.05)',
               border: '1px solid rgba(255,255,255,0.15)',
@@ -77,7 +77,7 @@ export default function Home() {
           </span>
         </div>
         <p
-          className="text-sm font-mono max-w-lg h-[20px] md:h-auto"
+          className="text-sm font-mono max-w-lg min-h-[40px] md:min-h-[20px] mt-2 md:mt-0"
           style={{ color: 'var(--color-text-muted)' }}
         >
           <TypewriterText 
